@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "124171578258",
+    "firebase_url": "https://movies-play-6e4ed.firebaseio.com",
+    "project_id": "movies-play-6e4ed",
+    "storage_bucket": "movies-play-6e4ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124171578258:android:3d8f80ae949225c0416f4b",
+        "android_client_info": {
+          "package_name": "com.example.flutterapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124171578258-901fa2p991buci75kcvp1ea1fldm320q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpXonYPIgJLYh_M4AQYz7QiStOsllThyw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124171578258-901fa2p991buci75kcvp1ea1fldm320q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124171578258:android:fd2e73063b68e381416f4b",
+        "android_client_info": {
+          "package_name": "com.movieplay.MoviePlay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124171578258-901fa2p991buci75kcvp1ea1fldm320q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpXonYPIgJLYh_M4AQYz7QiStOsllThyw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124171578258-901fa2p991buci75kcvp1ea1fldm320q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
