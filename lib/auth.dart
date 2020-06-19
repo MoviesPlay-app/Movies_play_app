@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as JSON;
 
 class Login extends StatelessWidget {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = new GoogleSignIn();
+  final facebookLogin=FacebookLogin();
 
-  Future<FirebaseUser> _signIn() async{
+  Future<FirebaseUser> login_with_google() async{
     GoogleSignInAccount googleSignInAccount=await googleSignIn.signIn();
     GoogleSignInAuthentication gsa=await googleSignInAccount.authentication;
     final AuthCredential credential = GoogleAuthProvider.getCredential(
@@ -17,14 +22,30 @@ class Login extends StatelessWidget {
     );
     final AuthResult authResult = await _auth.signInWithCredential(credential);
     FirebaseUser user = authResult.user;
-    print("signed in " + user.displayName);
+    print("a");
+    print("signed in " + user.displayName + user.email);
+    print(user);
     return user;
   }
 
-  void signOut()
+  login_with_fb() async{
+    final result = await facebookLogin.logInWithReadPermissions(['email']);
+    final token=result.accessToken.token;
+    final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
+    final profile=JSON.jsonDecode(graphResponse.body);
+    print(profile);
+
+}
+
+  void googleSignOut()
   {
     googleSignIn.signOut();
     print("user signed out");
+  }
+
+  void facebookSignOut()
+  {
+    facebookLogin.logOut();
   }
 
 
@@ -32,7 +53,7 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Sample App'),
+          title: Text('Movies Play'),
         ),
         body: Padding(
             padding: EdgeInsets.all(10),
@@ -42,7 +63,7 @@ class Login extends StatelessWidget {
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      'TutorialKart',
+                      'Authentication',
                       style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.w500,
@@ -95,22 +116,39 @@ class Login extends StatelessWidget {
                         print(passwordController.text);
                       },
                     )),
+                FlatButton(
+                  onPressed: (){
+                    //forgot password screen
+                  },
+                  textColor: Colors.blue,
+                  child: Text('Or'),
+                ),
                 Container(
                     height: 50,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: RaisedButton(
-                      textColor: Colors.white,
-                      color: Colors.blue,
-                      child: Text('Sign In With Google'),
+
+                    child: GoogleSignInButton(
                       onPressed: () {
-                        print(nameController.text);
-                        print(passwordController.text);
-                        _signIn()
+                        print("a");
+                        login_with_google()
+
                             .then((FirebaseUser user) => print(user))
                             .catchError((e) => print(e));
+
                         Navigator.pushNamed(context, '/userhome');
                       },
                     )),
+                Container(
+                    height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: FacebookSignInButton(
+                      onPressed: () {
+                        login_with_fb();
+                        Navigator.pushNamed(context, '/userhome');
+
+                      },
+                    )),
+
                 Container(
                     child: Row(
                       children: <Widget>[
