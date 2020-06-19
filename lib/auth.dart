@@ -48,6 +48,11 @@ class Login extends StatelessWidget {
     facebookLogin.logOut();
   }
 
+  void twitterSignOut()
+  {
+    
+  }
+
 
   @override
   Widget build(BuildContext context) {
