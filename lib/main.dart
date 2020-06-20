@@ -4,7 +4,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/auth.dart';
 import 'package:flutterapp/home.dart';
+import 'package:flutterapp/push.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'auth.dart' as auth;
+import 'home.dart' as home;
 
 
 void main() {
@@ -15,6 +18,7 @@ void main() {
       '/login' : (context) => Login(),
       '/signup' : (context) => SignUp(),
       '/userhome' : (context) => UserHome(),
+      '/push' : (context) => PushNotification(),
     },
 
   ));
@@ -30,12 +34,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+     //test code
     return new SplashScreen(
       seconds: 8,
       image: new Image.asset('assets/loading.gif'),
       backgroundColor: Colors.black,
       photoSize: 150,
-      navigateAfterSeconds: AfterSplash(),
+      //navigateAfterSeconds: AfterSplash(),
+      navigateAfterSeconds : AfterSplash()
     );
   }
 }
@@ -70,6 +76,17 @@ class AfterSplash extends StatelessWidget {
                       child: Text('Sign Up'),
                       onPressed: () {
                         Navigator.pushNamed(context, '/signup');
+                      },
+                    )),
+                    Container(
+                    height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: RaisedButton(
+                      textColor: Colors.white,
+                      color: Colors.blue,
+                      child: Text('logout'),
+                      onPressed: () {
+                        Login().googleSignOut();
                       },
                     )),
 

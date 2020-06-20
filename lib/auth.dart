@@ -5,6 +5,10 @@ import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as JSON;
+import 'push.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 
 class Login extends StatelessWidget {
   TextEditingController nameController = TextEditingController();
@@ -12,6 +16,8 @@ class Login extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = new GoogleSignIn();
   final facebookLogin=FacebookLogin();
+  static final FirebaseMessaging firebase_messaging= FirebaseMessaging();
+  FlutterLocalNotificationsPlugin flutter_local_notifications=FlutterLocalNotificationsPlugin();
 
   Future<FirebaseUser> login_with_google() async{
     GoogleSignInAccount googleSignInAccount=await googleSignIn.signIn();
@@ -22,9 +28,11 @@ class Login extends StatelessWidget {
     );
     final AuthResult authResult = await _auth.signInWithCredential(credential);
     FirebaseUser user = authResult.user;
-    print("a");
-    print("signed in " + user.displayName + user.email);
+    //register();
+    
     print(user);
+    initializeNotifications();
+    showNotificationWithDefaultSound(user);
     return user;
   }
 
@@ -52,6 +60,34 @@ class Login extends StatelessWidget {
   {
     
   }
+
+  void register()
+  {
+      firebase_messaging.getToken().then((token) => print(token));
+  }
+  initializeNotifications() async{
+    var initializeAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializeIOS = IOSInitializationSettings();
+    var initSettings = InitializationSettings(initializeAndroid, initializeIOS);
+    await flutter_local_notifications.initialize(initSettings);
+  }
+
+  Future showNotificationWithSound(FirebaseUser user) async {
+  var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+      'your channel id', 'your channel name', 'your channel description',
+      sound: 'slow_spring_board',
+      importance: Importance.Max, priority: Priority.High);
+  var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+  var platformChannelSpecifics = new NotificationDetails(
+      androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+  await flutter_local_notifications.show(
+    0,
+    'Sign In',
+    user.displayName+' You have just signed in to Movies Play',
+    platformChannelSpecifics,
+    payload: 'Custom_Sound',
+  );
+}
 
 
   @override
@@ -138,8 +174,11 @@ class Login extends StatelessWidget {
                         login_with_google()
 
                             .then((FirebaseUser user) => print(user))
+                            
                             .catchError((e) => print(e));
-
+                            
+                            
+                        
                         Navigator.pushNamed(context, '/userhome');
                       },
                     )),
@@ -270,6 +309,5 @@ class SignUp extends StatelessWidget {
             )));
   }
 }
-
 
 
