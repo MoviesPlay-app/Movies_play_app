@@ -17,7 +17,7 @@ void main() {
     routes: {
       '/login' : (context) => Login(),
       '/signup' : (context) => SignUp(),
-      '/userhome' : (context) => UserHome(),
+      '/userhome' : (context) => UserDisplayHome(),
       '/push' : (context) => PushNotification(),
     },
 
@@ -64,7 +64,14 @@ class AfterSplash extends StatelessWidget {
                   color: Colors.blue,
                   child: Text('Login'),
                   onPressed: () {
+                    print(Login().isSignedIn);
+                    if(Login().isSignedIn || SignUp().isSignedIn){
+                      
+                      Navigator.pushNamed(context, '/userhome');
+                    }
+                    else{
                     Navigator.pushNamed(context, '/login');
+                    }
                   },
                 )),
                 Container(
@@ -75,7 +82,12 @@ class AfterSplash extends StatelessWidget {
                       color: Colors.blue,
                       child: Text('Sign Up'),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/signup');
+                        if(Login().isSignedIn || SignUp().isSignedIn){
+                      Navigator.pushNamed(context, '/userhome');
+                    }
+                    else{
+                    Navigator.pushNamed(context, '/signup');
+                    }
                       },
                     )),
                     Container(
@@ -87,6 +99,8 @@ class AfterSplash extends StatelessWidget {
                       child: Text('logout'),
                       onPressed: () {
                         Login().googleSignOut();
+                        Login().email_signout();
+                        Login().facebookSignOut();
                       },
                     )),
 
