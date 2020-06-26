@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutterapp/auth.dart';
 import 'package:flutterapp/home.dart';
@@ -12,13 +9,14 @@ import 'home.dart' as home;
 
 void main() {
   runApp(MaterialApp(
-
+    
     home : Home(),
     routes: {
       '/login' : (context) => Login(),
       '/signup' : (context) => SignUp(),
       '/userhome' : (context) => UserDisplayHome(),
       '/push' : (context) => PushNotification(),
+      '/midscreen' : (context) => MidScreen(),
     },
 
   ));
@@ -129,21 +127,11 @@ class AfterSplash extends StatelessWidget {
               decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: 'Enter your email',
-
               ),
               textAlign: TextAlign.center,
               autofocus: true,
-
-
-
             ),
-
-
-
-
-
           ),
-
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               print('Pressed');
@@ -152,11 +140,5 @@ class AfterSplash extends StatelessWidget {
             backgroundColor: Colors.red,
           ),
         );
-
-
-
-
   }
 }*/
-
-

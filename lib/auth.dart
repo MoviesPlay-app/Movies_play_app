@@ -9,6 +9,8 @@ import 'push.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flushbar/flushbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 
 class Login extends StatelessWidget {
@@ -21,6 +23,9 @@ class Login extends StatelessWidget {
   FlutterLocalNotificationsPlugin flutter_local_notifications=FlutterLocalNotificationsPlugin();
   AuthResult result;
   bool isSignedIn=false;
+  final DocumentReference=Firestore.instance.collection('user_profile').document('first');
+  
+
 
   Future<FirebaseUser> login_with_google() async{
     GoogleSignInAccount googleSignInAccount=await googleSignIn.signIn();
@@ -108,6 +113,19 @@ return fuser;
   );
 }
 
+//Firestore methods
+
+String getUserName(){
+  String name='';
+  DocumentReference.get().then((snapshot) => {
+    if(snapshot.exists){
+      name= snapshot.data['Name'],
+      print(name),
+    }
+  }).catchError((e)=>print(e));
+  return name;
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -172,13 +190,17 @@ return fuser;
                       color: Colors.blue,
                       child: Text('Login'),
                       onPressed: () {
+                        
                         signInWithEmailAndPassword().then((AuthResult result) => {
+            
+                          
                           initializeNotifications(),
                           showNotificationWithSound(),
                           print(result.user),
                           isSignedIn=true,
-                          
-                          Navigator.pushNamed(context, '/userhome',arguments: {'email':emailController.text,'name':SignUp().nameController.text}),
+                          print('a'),
+                          //Navigator.pushNamed(context,'/userhome')
+                          Navigator.pushNamed(context,'/userhome',arguments: {'email':emailController.text,'name':getUserName()}),
                           })
                         .catchError((e)=> {
                           print(e),
@@ -216,6 +238,7 @@ return fuser;
                               initializeNotifications(),
                               showNotificationWithSound(),
                               print(user),
+                    
                                Navigator.pushNamed(context, '/userhome',arguments: {'email':user.email,'name':user.displayName}),
                               })
                               
@@ -239,7 +262,7 @@ return fuser;
                               initializeNotifications(),
                               showNotificationWithSound(),
                               
-                              Navigator.pushNamed(context, '/userhome'),
+                              //Navigator.pushNamed(context, '/userhome'),
                         })
                         .catchError((e)=>print(e));
                         
@@ -275,6 +298,7 @@ class SignUp extends StatelessWidget {
   TextEditingController nameController=TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = new GoogleSignIn();
   final facebookLogin=FacebookLogin();
@@ -282,6 +306,7 @@ class SignUp extends StatelessWidget {
   FlutterLocalNotificationsPlugin flutter_local_notifications=FlutterLocalNotificationsPlugin();
   AuthResult result;
   bool isSignedIn=false;
+  final DocumentReference=Firestore.instance.collection('user_profile').document('first');
 
   Future<FirebaseUser> login_with_google() async{
     GoogleSignInAccount googleSignInAccount=await googleSignIn.signIn();
@@ -342,7 +367,7 @@ class SignUp extends StatelessWidget {
   Future showNotificationWithSound() async {
   var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
       'your channel id', 'your channel name', 'your channel description',
-      sound: 'slow_spring_board',
+      sound: 'notification',
       importance: Importance.Max, priority: Priority.High);
   var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
   var platformChannelSpecifics = new NotificationDetails(
@@ -356,6 +381,19 @@ class SignUp extends StatelessWidget {
   );
 }
 
+//Firestore methods
+
+void add_user(){
+Map<String,dynamic> data=<String,dynamic>{
+  'Email': emailController.text,
+  'Password' : passwordController.text,
+  'Name' : nameController.text,
+  'Phone' : phoneController.text,
+};
+DocumentReference.setData(data).whenComplete(() => {
+  print('user added'),
+}).catchError((e)=>print(e));
+}
 
   @override
   Widget build(BuildContext context) {
@@ -405,6 +443,16 @@ class SignUp extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  padding: EdgeInsets.all(10),
+                  child: TextField(
+                    controller: phoneController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Phone Number',
+                    ),
+                  ),
+                ),
+                Container(
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                   child: TextField(
                     obscureText: true,
@@ -433,9 +481,10 @@ class SignUp extends StatelessWidget {
                         
                         signUpWithEmailAndPassword(emailController.text,passwordController.text)
                         .then((result) => {isSignedIn=true,
-                       
+                        add_user(),
                         initializeNotifications(),
                         showNotificationWithSound(),
+                        
                          Navigator.pushNamed(context, '/userhome',arguments: {'email':emailController.text,'name':nameController.text}),
 
                         })
@@ -494,7 +543,7 @@ class SignUp extends StatelessWidget {
                     child: FacebookSignInButton(
                       onPressed: () {
                         login_with_fb();
-                        Navigator.pushNamed(context, '/userhome');
+                        //Navigator.pushNamed(context, '/userhome');
 
                       },
                     )),
