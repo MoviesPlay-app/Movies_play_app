@@ -151,54 +151,209 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
                     ],
                   ),
                   SizedBox(height: 50),
-                  Container(
-                    height: 200,
-                    child: PageView(
-                      controller: PageController(viewportFraction: 0.8),
-                      scrollDirection: Axis.horizontal,
-                      physics: BouncingScrollPhysics(),
-                      pageSnapping: true,
-                      children: <Widget>[
-                        /*Container(
-                          child : SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
-                          child: SlimyCard(
-                            color: Colors.red,
-                            width:200,
-                            topCardHeight:150,
-                            bottomCardHeight: 100,
-                            borderRadius: 15,
-                            slimeEnabled:true,
+                      Container(
+                      height: 200,
+                      child: PageView(
+                        controller: PageController(initialPage: 0),
+                        scrollDirection: Axis.horizontal,
+                        physics: BouncingScrollPhysics(),
+                        pageSnapping: true,
+                        children: <Widget>[
+                              /*SlimyCard(
+                              color: Colors.red,
+                              width:200,
+                              topCardHeight:150,
+                              bottomCardHeight: 100,
+                              borderRadius: 15,
+                              slimeEnabled:true,
+                            ),*/
+                              
+                            
+                            
+                           
+                            
+                          
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 8 ),
+                            //color: Colors.blueAccent,
+                            width: 50,
+                            
+                            child:Card(
+                             elevation: 8,
+                            shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            
+                                ),
+                            child:Container(
+                            decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [Colors.blue, Colors.red]),
+                            borderRadius: BorderRadius.circular(15.0),),
+                            child: Center(
+                            child: Text(
+                            'Cinematography',
+                            style: TextStyle(
+                              fontSize: 48.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                           ),
+                        ),
+                      ),
+                            
+                           
+                            
+                            ),
+                            
                           ),
-                         
-                        ),*/
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
-                          color: Colors.blueAccent,
-                          width: 100,
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 8 ),
+                            //color: Colors.blueAccent,
+                            width: 50,
+                            
+                            child:Card(
+                             elevation: 8,
+                            shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            
+                                ),
+                            child:Container(
+                            decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [Colors.blue, Colors.red]),
+                            borderRadius: BorderRadius.circular(15.0),),
+                            child: Center(
+                            child: Text(
+                            'Genre',
+                            style: TextStyle(
+                              fontSize: 48.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                          ),
                         ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
-                          color: Colors.blueAccent,
-                          width: 100,
+                      ),
+                            
+                           
+                            
+                            ),
+                            
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 8 ),
+                            //color: Colors.blueAccent,
+                            width: 50,
+                            
+                            child:Card(
+                             elevation: 8,
+                            shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            
+                                ),
+                            child:Container(
+                            decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [Colors.blue, Colors.red]),
+                            borderRadius: BorderRadius.circular(15.0),),
+                            child: Center(
+                            child: Text(
+                            'Cast',
+                            style: TextStyle(
+                              fontSize: 48.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                          ),
                         ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
-                          color: Colors.greenAccent,
-                          width: 100,
+                      ),
+                            
+                           
+                            
+                            ),
+                            
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 8 ),
+                            //color: Colors.blueAccent,
+                            width: 50,
+                            
+                            child:Card(
+                             elevation: 8,
+                            shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            
+                                ),
+                            child:Container(
+                            decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [Colors.blue, Colors.red]),
+                            borderRadius: BorderRadius.circular(15.0),),
+                            child: Center(
+                            child: Text(
+                            'Plot',
+                            style: TextStyle(
+                              fontSize: 48.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
+                            
+                           
+                            
+                            ),
+                            
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 8 ),
+                            //color: Colors.blueAccent,
+                            width: 50,
+                            
+                            child:Card(
+                             elevation: 8,
+                            shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            
+                                ),
+                            child:Container(
+                            decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [Colors.blue, Colors.red]),
+                            borderRadius: BorderRadius.circular(15.0),),
+                            child: Center(
+                            child: Text(
+                            'Language',
+                            style: TextStyle(
+                              fontSize: 48.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                          ),
+                        ),
+                      ),
+                            
+                           
+                            
+                            ),
+                            
+                          ),
+                        ],
+                      ),
+                      ),
+                  
                   SizedBox(height: 70),
                   Text("Cinematography", style: TextStyle(color: Colors.black, fontSize: 20),),
                   SizedBox(height:10),
                   Container(
                     height: 200,
                     child: PageView(
-                      controller: PageController(viewportFraction:0.6),
+                      controller: PageController(viewportFraction:0.5),
                       scrollDirection: Axis.horizontal,
                       physics: BouncingScrollPhysics(),
                       children: <Widget>[
@@ -225,7 +380,7 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
                   Container(
                     height: 200,
                     child: PageView(
-                      controller: PageController(viewportFraction:0.6),
+                      controller: PageController(viewportFraction:0.5),
                       scrollDirection: Axis.horizontal,
                       physics: BouncingScrollPhysics(),
                       children: <Widget>[
@@ -253,7 +408,7 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
                   Container(
                     height: 200,
                     child: PageView(
-                      controller: PageController(viewportFraction:0.6),
+                      controller: PageController(viewportFraction:0.5),
                       scrollDirection: Axis.horizontal,
                       physics: BouncingScrollPhysics(),
                       children: <Widget>[
@@ -280,7 +435,7 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
                   Container(
                     height: 200,
                     child: PageView(
-                      controller: PageController(viewportFraction:0.6),
+                      controller: PageController(viewportFraction:0.5),
                       scrollDirection: Axis.horizontal,
                       physics: BouncingScrollPhysics(),
                       children: <Widget>[
@@ -307,7 +462,7 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
                   Container(
                     height: 200,
                     child: PageView(
-                      controller: PageController(viewportFraction:0.6),
+                      controller: PageController(viewportFraction:0.5),
                       scrollDirection: Axis.horizontal,
                       physics:BouncingScrollPhysics(),
                       children: <Widget>[
