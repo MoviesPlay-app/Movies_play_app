@@ -1,6 +1,7 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:flutterapp/bottomnavbar.dart';
 import 'package:slimy_card/slimy_card.dart';
 //import 'package:awesome_card/awesome_card.dart';
 // To be done 
@@ -73,6 +74,9 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
           dashboard(context),
         ],
       ),
+      bottomNavigationBar: BottomBar(
+
+      ),
     );
   }
 
@@ -90,15 +94,46 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("Dashboard", style: TextStyle(color: Colors.black, fontSize: 22)),
-                SizedBox(height: 10),
-                Text("Messages", style: TextStyle(color: Colors.black, fontSize: 22)),
-                SizedBox(height: 10),
-                Text("Utility Bills", style: TextStyle(color: Colors.black, fontSize: 22)),
-                SizedBox(height: 10),
-                Text("Funds Transfer", style: TextStyle(color: Colors.black, fontSize: 22)),
-                SizedBox(height: 10),
-                Text("Branches", style: TextStyle(color: Colors.black, fontSize: 22)),
+                FlatButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/userhome');
+                },
+                child:Text("Dashboard", style: TextStyle(color: Colors.black, fontSize: 22)),
+  
+                ),
+              
+                SizedBox(height: 14),
+                FlatButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/userhome');
+                },
+                child:Text("Messages", style: TextStyle(color: Colors.black, fontSize: 22)),
+  
+                ),
+                SizedBox(height: 14),
+                FlatButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/profile');
+                },
+                child:Text("Profile", style: TextStyle(color: Colors.black, fontSize: 22)),
+  
+                ),
+                SizedBox(height: 14),
+               FlatButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/profile');
+                },
+                child:Text("Signout", style: TextStyle(color: Colors.black, fontSize: 22)),
+  
+                ),
+                SizedBox(height: 14),
+                FlatButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/userhome');
+                },
+                child:Text("About", style: TextStyle(color: Colors.black, fontSize: 22)),
+  
+                ),
               ],
             ),
           ),
@@ -118,7 +153,7 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
         scale: _scaleAnimation,
         child: Material(
           animationDuration: duration,
-          borderRadius: BorderRadius.all(Radius.circular(40)),
+          //borderRadius: BorderRadius.all(Radius.circular(40)),
           elevation: 8,
           color: backgroundColor,
           child: SingleChildScrollView(
@@ -483,6 +518,7 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
                         ),
                     ],)
                   )
+                  
                   /*SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   physics:BouncingScrollPhysics(),
@@ -502,9 +538,12 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
                 ],
               ),
             ),
+            
           ),
+          
         ),
       ),
+      
     );
   }
 }

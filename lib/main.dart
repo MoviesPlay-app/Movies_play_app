@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/auth.dart';
+import 'package:flutterapp/discussion.dart';
 import 'package:flutterapp/home.dart';
+import 'package:flutterapp/profile.dart';
 import 'package:flutterapp/push.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'auth.dart' as auth;
@@ -17,6 +19,8 @@ void main() {
       '/userhome' : (context) => UserDisplayHome(),
       '/push' : (context) => PushNotification(),
       '/midscreen' : (context) => MidScreen(),
+      '/discussion': (context) => Discussion(),
+      '/profile' : (context)=> Profile()
     },
 
   ));
