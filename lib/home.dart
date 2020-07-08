@@ -1,8 +1,10 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:flutterapp/bottomnavbar.dart';
+import 'package:flutterapp/navigation_bars/bottomnavbar.dart';
 import 'package:slimy_card/slimy_card.dart';
+import 'package:hive/hive.dart';
+
 //import 'package:awesome_card/awesome_card.dart';
 // To be done 
 class MidScreen extends StatefulWidget {
@@ -13,8 +15,7 @@ class MidScreen extends StatefulWidget {
 class _MidScreenState extends State<MidScreen> {
   @override
   Widget build(BuildContext context) {
-     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
-    print(arguments['email']+arguments['name']);
+     
     return Scaffold(
     body : Container(
       decoration : BoxDecoration(
@@ -44,6 +45,7 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
   Animation<double> _scaleAnimation;
   Animation<double> _menuScaleAnimation;
   Animation<Offset> _slideAnimation;
+  var box;
 
   @override
   void initState() {
@@ -52,6 +54,7 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
     _scaleAnimation = Tween<double>(begin: 1, end: 0.8).animate(_controller);
     _menuScaleAnimation = Tween<double>(begin: 0.5, end: 1).animate(_controller);
     _slideAnimation = Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0)).animate(_controller);
+    
   }
 
   @override
@@ -65,6 +68,8 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
     Size size = MediaQuery.of(context).size;
     screenHeight = size.height;
     screenWidth = size.width;
+   
+    //print(arguments['email']+arguments['name']+arguments['profile_pic']);
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -81,6 +86,14 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
   }
 
   Widget menu(context) {
+    final Map args = ModalRoute.of(context).settings.arguments as Map;
+    box=Hive.box('myBox');
+
+    box.put('name',args['name']);
+    box.put('email',args['email']);
+    box.put('profile_pic',args['profile_pic']);
+    print(args['name']);
+
     return SlideTransition(
       position: _slideAnimation,
       child: ScaleTransition(
@@ -113,7 +126,7 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
                 SizedBox(height: 14),
                 FlatButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/profile');
+                  Navigator.pushNamed(context, '/profile',arguments:{'name':args['name'],'email':args['email'],'profile_pic':args['profile_pic']});
                 },
                 child:Text("Profile", style: TextStyle(color: Colors.black, fontSize: 22)),
   

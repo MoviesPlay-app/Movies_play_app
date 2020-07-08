@@ -41,6 +41,8 @@ dependencies:
   google_fonts:
   slimy_card:
   awesome_card:
+  hive:
+  hive_flutter:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -74,6 +76,24 @@ flutter:
     - assets/Monster Splash Screen.jpg
     - assets/midscreen2.flr
     - assets/midscreen2.flr2d
+    - assets/icons/action.png
+    - assets/icons/adventure.png
+    - assets/icons/animation.png
+    - assets/icons/biography.png
+    - assets/icons/comedy.png
+    - assets/icons/horror.png
+    - assets/icons/musical.png
+    - assets/icons/romance.png
+    - assets/icons/sci-fi.png
+    - assets/icons/horror (2).png
+    - assets/icons/musical (2).png
+    - assets/icons/romance (2).png
+    - assets/icons/drama.png
+    - assets/icons/english.png
+    - assets/icons/hindi.png
+    - assets/icons/regional.png
+    - assets/icons/international.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

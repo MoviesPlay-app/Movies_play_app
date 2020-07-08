@@ -24,6 +24,7 @@ class Login extends StatelessWidget {
   AuthResult result;
   bool isSignedIn=false;
   final DocumentReference=Firestore.instance.collection('user_profile').document('first');
+  String user_name;
   
 
 
@@ -115,12 +116,11 @@ return fuser;
 
 //Firestore methods
 
-String getUserName(){
+Future<String> getUserName() async{
   String name='';
-  DocumentReference.get().then((snapshot) => {
+  await DocumentReference.get().then((snapshot) => {
     if(snapshot.exists){
       name= snapshot.data['Name'],
-      print(name),
     }
   }).catchError((e)=>print(e));
   return name;
@@ -191,16 +191,18 @@ String getUserName(){
                       child: Text('Login'),
                       onPressed: () {
                         
-                        signInWithEmailAndPassword().then((AuthResult result) => {
-            
+                        signInWithEmailAndPassword().then((AuthResult result) =>{
                           
+                          user_name=getUserName().toString().toString(),
+                          print(user_name),
                           initializeNotifications(),
                           showNotificationWithSound(),
                           print(result.user),
                           isSignedIn=true,
                           print('a'),
                           //Navigator.pushNamed(context,'/userhome')
-                          Navigator.pushNamed(context,'/userhome',arguments: {'email':emailController.text,'name':getUserName()}),
+        
+                          Navigator.pushNamed(context,'/userhome',arguments: {'email':emailController.text,'name':user_name}),
                           })
                         .catchError((e)=> {
                           print(e),
@@ -239,7 +241,7 @@ String getUserName(){
                               showNotificationWithSound(),
                               print(user),
                     
-                               Navigator.pushNamed(context, '/userhome',arguments: {'email':user.email,'name':user.displayName}),
+                               Navigator.pushNamed(context, '/userhome',arguments: {'email':user.email,'name':user.displayName,'profile_pic':user.photoUrl}),
                               })
                               
                             
@@ -383,7 +385,7 @@ class SignUp extends StatelessWidget {
 
 //Firestore methods
 
-void add_user(){
+/*void add_user(){
 Map<String,dynamic> data=<String,dynamic>{
   'Email': emailController.text,
   'Password' : passwordController.text,
@@ -393,7 +395,7 @@ Map<String,dynamic> data=<String,dynamic>{
 DocumentReference.setData(data).whenComplete(() => {
   print('user added'),
 }).catchError((e)=>print(e));
-}
+}*/
 
   @override
   Widget build(BuildContext context) {
@@ -481,11 +483,11 @@ DocumentReference.setData(data).whenComplete(() => {
                         
                         signUpWithEmailAndPassword(emailController.text,passwordController.text)
                         .then((result) => {isSignedIn=true,
-                        add_user(),
+                        //add_user(),
                         initializeNotifications(),
                         showNotificationWithSound(),
                         
-                         Navigator.pushNamed(context, '/userhome',arguments: {'email':emailController.text,'name':nameController.text}),
+                         Navigator.pushNamed(context, '/preferences cinematography',arguments: {'name':nameController.text,'email':emailController.text,'phone':phoneController.text}),
 
                         })
                         .catchError((e) =>{

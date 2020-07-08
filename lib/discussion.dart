@@ -1,7 +1,7 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:flutterapp/bottomnavbar.dart';
+import 'package:flutterapp/navigation_bars/bottomnavbar.dart';
 import 'package:slimy_card/slimy_card.dart';
 class Discussion extends StatefulWidget {
   @override

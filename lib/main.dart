@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/auth.dart';
 import 'package:flutterapp/discussion.dart';
 import 'package:flutterapp/home.dart';
+import 'package:flutterapp/preferences.dart';
 import 'package:flutterapp/profile.dart';
 import 'package:flutterapp/push.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'auth.dart' as auth;
 import 'home.dart' as home;
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 
-
-void main() {
+void main() async{
+   WidgetsFlutterBinding.ensureInitialized();
+  final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir.path);
+  //Hive.registerAdapter(ContactAdapter(), 0);
   runApp(MaterialApp(
     
     home : Home(),
@@ -20,7 +26,11 @@ void main() {
       '/push' : (context) => PushNotification(),
       '/midscreen' : (context) => MidScreen(),
       '/discussion': (context) => Discussion(),
-      '/profile' : (context)=> Profile()
+      '/profile' : (context)=> Profile(),
+      '/preferences cinematography' : (context)=> PreferencesCinematography(),
+      '/preferences genre': (context) => PreferencesGenre(),
+      '/preferences language': (context) => PreferencesLanguage(),
+      '/preferences plot' : (context) => PreferencesPlot(),
     },
 
   ));
