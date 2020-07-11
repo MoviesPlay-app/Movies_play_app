@@ -13,7 +13,7 @@ class BottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return ValueListenableBuilder(
-    valueListenable: Hive.box('myBox').listenable(),
+    valueListenable:Hive.box('myBox').listenable(),
     builder: (context,box,widget){
     return Container(
       padding: const EdgeInsets.only(left: 16, right: 6),
@@ -46,7 +46,7 @@ class BottomBar extends StatelessWidget {
           InkWell(
           child:Icon(Icons.face,semanticLabel: 'Profile',size:31,color:Color.fromRGBO(33, 39, 189, 1)),
           onTap:()=>{
-            Navigator.pushNamed(context,'/profile',arguments: {'name':box.get('name'),'email':box.get('email'),'profile_pic':box.get('profile_pic')})
+           // Navigator.pushNamed(context,'/profile',arguments: {'name':box.get('name'),'email':box.get('email'),'profile_pic':box.get('profile_pic')})
           },
           ),
         ],

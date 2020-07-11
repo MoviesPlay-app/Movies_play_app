@@ -385,7 +385,7 @@ class SignUp extends StatelessWidget {
 
 //Firestore methods
 
-/*void add_user(){
+void add_user(){
 Map<String,dynamic> data=<String,dynamic>{
   'Email': emailController.text,
   'Password' : passwordController.text,
@@ -395,7 +395,7 @@ Map<String,dynamic> data=<String,dynamic>{
 DocumentReference.setData(data).whenComplete(() => {
   print('user added'),
 }).catchError((e)=>print(e));
-}*/
+}
 
   @override
   Widget build(BuildContext context) {
@@ -529,7 +529,7 @@ DocumentReference.setData(data).whenComplete(() => {
                             .then((FirebaseUser user) => {
                               isSignedIn=true,
                               print(user),
-                              Navigator.pushNamed(context, '/userhome',arguments: {'email':user.email,'name':user.displayName}),
+                              Navigator.pushNamed(context, '/preferences cinematography',arguments: {'email':user.email,'name':user.displayName}),
                               })
                             
                             .catchError((e) => print(e));

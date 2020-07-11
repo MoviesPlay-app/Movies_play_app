@@ -79,19 +79,19 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
           dashboard(context),
         ],
       ),
-      bottomNavigationBar: BottomBar(
+      /*bottomNavigationBar: BottomBar(
 
-      ),
+      ),*/
     );
   }
 
   Widget menu(context) {
     final Map args = ModalRoute.of(context).settings.arguments as Map;
-    box=Hive.box('myBox');
+    /*box=Hive.box('myBox');
 
     box.put('name',args['name']);
     box.put('email',args['email']);
-    box.put('profile_pic',args['profile_pic']);
+    box.put('profile_pic',args['profile_pic']);*/
     print(args['name']);
 
     return SlideTransition(

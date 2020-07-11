@@ -6,6 +6,7 @@ import 'package:slimy_card/slimy_card.dart';
 import 'package:hive/hive.dart';
 import 'dart:async';
 import 'navigation_bars/bottom_nav_bar_preference.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PreferencesCinematography extends StatefulWidget {
   @override
@@ -26,6 +27,7 @@ class _PreferencesCinematographyState extends State<PreferencesCinematography> {
 
     var cinematography_preferences=[];
     //var box=Hive.box('myBox');
+    //var box=Hive.box('User_details');
     int count=0;
     List<bool> _lights=[false,false,false,false,false,false,false,false,false];
 
@@ -33,10 +35,11 @@ class _PreferencesCinematographyState extends State<PreferencesCinematography> {
   @override
   Widget build(BuildContext context) {
   final Map args = ModalRoute.of(context).settings.arguments as Map;
-    var box=Hive.box('User_details');
-    box.put('name',args['name']);
-    box.put('email',args['email']);
-    box.put('phone',args['phone']);
+    
+    //box.put('name',args['name']);
+    //box.put('email',args['email']);
+    //box.put('phone',args['phone']);
+
     
     return Scaffold(
       body:SingleChildScrollView(
@@ -128,7 +131,8 @@ class _PreferencesCinematographyState extends State<PreferencesCinematography> {
                         cinematography_preferences.remove(images[index]['name']);
                         print(cinematography_preferences);
                       }
-                    })
+                    }),
+                    //box.put('cinematography',cinematography_preferences),
                     }
                 ),
                 ],
@@ -150,9 +154,9 @@ class _PreferencesCinematographyState extends State<PreferencesCinematography> {
         )
       ),
       bottomNavigationBar: BottomBarCinematography(
-
+        
       ),
-      
+
     );
     
   }
@@ -178,10 +182,10 @@ class _PreferencesGenreState extends State<PreferencesGenre> {
     ];
 
     var genre_preferences=[];
-    //var box=Hive.box('myBox');
+    //var box=Hive.box('User_details');
     int count=0;
     List<bool> _lights=[false,false,false,false,false,false,false,false];
-
+    
   
   @override
   Widget build(BuildContext context) {
@@ -261,8 +265,10 @@ class _PreferencesGenreState extends State<PreferencesGenre> {
                        genre_preferences.remove(images[index]['name']);
                         print(genre_preferences);
                       }
-                    })
-                    }
+                    }),
+                    //box.put('genre',genre_preferences),
+                    },  
+                    
                 )
                     
                 ),
@@ -296,6 +302,7 @@ class _PreferencesGenreState extends State<PreferencesGenre> {
 
 
       ),
+
     );
   }
 
@@ -318,7 +325,7 @@ class _PreferencesLanguageState extends State<PreferencesLanguage> {
     ];
 
     var language_preferences=[];
-    //var box=Hive.box('myBox');
+    //var box=Hive.box('User_details');
     int count=0;
     List<bool> _lights=[false,false,false,false];
 
@@ -401,8 +408,10 @@ class _PreferencesLanguageState extends State<PreferencesLanguage> {
                        language_preferences.remove(images[index]['name']);
                         print(language_preferences);
                       }
-                    })
-                    }
+                    }),
+                    //box.put('language',language_preferences),
+                    },
+                    
                 )
                     
                 ),
@@ -455,6 +464,7 @@ class _PreferencesPlotState extends State<PreferencesPlot> {
   ];
     var plot_preferences=[];
     //var box=Hive.box('myBox');
+    //var box=Hive.box('User_details');
     int count=0;
     List<bool> _lights=[false,false,false,false,false,false,false,false,false];
 
@@ -549,8 +559,9 @@ class _PreferencesPlotState extends State<PreferencesPlot> {
                         plot_preferences.remove(names[index]);
                         print(plot_preferences);
                       }
-                    })
-                    }
+                    }),
+                    //box.put('plot',plot_preferences),
+                  }
                 ),
                 ],
                 ),
@@ -631,6 +642,7 @@ class _PreferencesPlotState extends State<PreferencesPlot> {
 
         )
       ),
+
       bottomNavigationBar: BottomBarPlot(
 
 
@@ -639,4 +651,25 @@ class _PreferencesPlotState extends State<PreferencesPlot> {
   }
 
 }
+
+class AddUser{
+  final DocumentReference=Firestore.instance.collection('user_profile').document('second');
+  var box=Hive.box('User_details');
+  void add(){
+  Map<String,dynamic> details=<String,String>{
+    'name':box.get('name'),
+    'email':box.get('email'),
+    'phone':box.get('phone'),
+    'cinematography':box.get('cinematography'),
+    'genre':box.get('genre'),
+    'language':box.get('language'),
+    'plot':box.get('plot'),
+  };
+  DocumentReference.setData(details).whenComplete(() => {
+  print('user added'),
+}).catchError((e)=>print(e));
+
+  }
+}
+
 
