@@ -1,9 +1,13 @@
+import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutterapp/navigation_bars/bottomnavbar.dart';
 import 'package:slimy_card/slimy_card.dart';
 import 'package:hive/hive.dart';
+import 'package:flappy_search_bar/flappy_search_bar.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 //import 'package:awesome_card/awesome_card.dart';
 // To be done 
@@ -46,6 +50,8 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
   Animation<double> _menuScaleAnimation;
   Animation<Offset> _slideAnimation;
   var box;
+  Widget cuswidget=Text('Row');
+  bool isVisible=true;
 
   @override
   void initState() {
@@ -68,6 +74,7 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
     Size size = MediaQuery.of(context).size;
     screenHeight = size.height;
     screenWidth = size.width;
+    
    
     //print(arguments['email']+arguments['name']+arguments['profile_pic']);
 
@@ -156,6 +163,7 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
   }
 
   Widget dashboard(context) {
+    
     return AnimatedPositioned(
       duration: duration,
       top: 0,
@@ -195,7 +203,14 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
                         },
                       ),
                       Text("Personalised List", style: TextStyle(fontSize: 24, color: Colors.black)),
-                      Icon(Icons.settings, color: Colors.black),
+                    InkWell(
+                      child:Icon(Icons.search, color: Colors.black),
+                      onTap:()=>{
+                        Navigator.push(context,MaterialPageRoute(builder:(context)=>
+                        Home(),
+                        )),
+                      }
+                    )
                     ],
                   ),
                   SizedBox(height: 50),
@@ -557,6 +572,66 @@ class _UserDisplayHome extends State<UserDisplayHome> with SingleTickerProviderS
         ),
       ),
       
+    );
+  }
+
+}
+class Post {
+  final String title;
+  final String link;
+
+  Post(this.title, this.link);
+}
+
+class Home extends StatelessWidget {
+  Map<dynamic,dynamic> result;
+  String title;
+  String actors;
+  Future<List<Post>> search(String title) async {
+  await Future.delayed(Duration(seconds: 2));
+  final response=await http.get('http://www.omdbapi.com/?t='+title+'&apikey=830ca110');
+  if(response.statusCode==200){
+    try{
+    //print(response.body);
+    result=JsonDecoder().convert(response.body);
+    title=result['Title'];
+    actors=result['Actors'];
+    
+    //language=response.body['Language'];
+    //poster=response.body['Poster'];
+  
+    }
+    catch(e){
+      print(e);
+    }
+  }
+  return List.generate(1, (int index) {
+    return Post(
+      title,
+      actors,
+    );
+  });
+}
+@override
+Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SearchBar<Post>(
+            onSearch: search,
+            onItemFound: (Post post, int index) {
+              return ListTile(
+                title: Text(post.title),
+                subtitle: Text(post.link),
+                onTap:()=>{
+                  Navigator.pushNamed(context, '/movie description',arguments:{'result':result}),
+                }
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/auth.dart';
 import 'package:flutterapp/discussion.dart';
 import 'package:flutterapp/home.dart';
+import 'package:flutterapp/movie_description.dart';
 import 'package:flutterapp/preferences.dart';
 import 'package:flutterapp/profile.dart';
 import 'package:flutterapp/push.dart';
@@ -31,6 +32,7 @@ void main() async{
       '/preferences genre': (context) => PreferencesGenre(),
       '/preferences language': (context) => PreferencesLanguage(),
       '/preferences plot' : (context) => PreferencesPlot(),
+      '/movie description' : (context) => MovieDescription(),
     },
 
   ));
